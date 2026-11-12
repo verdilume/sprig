@@ -1,21 +1,21 @@
 import gleam/io
-import sprig
+import moss
 
 pub fn main() -> Nil {
-  sprig.new()
-  |> sprig.foreground(sprig.Green)
-  |> sprig.render("Sprig: named ANSI color")
+  moss.new()
+  |> moss.foreground(moss.Green)
+  |> moss.render("Sprig: named ANSI color")
   |> io.println
 
-  let assert Ok(accent) = sprig.hex("#ff7b13")
+  let assert Ok(accent) = moss.hex("#ff7b13")
 
-  sprig.new()
-  |> sprig.foreground(accent)
-  |> sprig.background(sprig.Color(12, 89, 174))
-  |> sprig.bold
-  |> sprig.italic
-  |> sprig.underline
-  |> sprig.render("Sprig: styled text")
+  moss.new()
+  |> moss.foreground(accent)
+  |> moss.background(moss.Color(12, 89, 174))
+  |> moss.bold
+  |> moss.italic
+  |> moss.underline
+  |> moss.render("Sprig: styled text")
   |> io.println
 
   io.println("Plain text: the style above has been reset.")

@@ -10,8 +10,17 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: sprig
     steps:
       - uses: actions/checkout@v7
+        with:
+          path: sprig
+      - uses: actions/checkout@v7
+        with:
+          repository: ${{ vars.MOSS_REPOSITORY || format('{0}/moss', github.repository_owner) }}
+          path: moss
       - uses: erlef/setup-beam@v1
         with:
           otp-version: "29"

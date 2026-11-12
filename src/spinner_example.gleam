@@ -1,13 +1,13 @@
 import gleam/io
 import gleam/list
+import moss
 import spinner
-import sprig
 
 @external(erlang, "timer", "sleep")
 fn sleep(milliseconds: Int) -> Nil
 
 pub fn main() -> Nil {
-  let text_style = sprig.new() |> sprig.foreground(sprig.Color(220, 220, 220))
+  let text_style = moss.new() |> moss.foreground(moss.Color(220, 220, 220))
   io.println("")
   list.each(
     [
@@ -21,7 +21,7 @@ pub fn main() -> Nil {
     ],
     fn(preset) {
       let value = spinner.new() |> spinner.variant(preset.0)
-      let label = sprig.render(text_style, "Loading... (" <> preset.1 <> ")")
+      let label = moss.render(text_style, "Loading... (" <> preset.1 <> ")")
       animate(value, label, 24)
       io.println("\n")
     },

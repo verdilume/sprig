@@ -1,8 +1,8 @@
 import gleam/list
 import gleam/string
 import gleeunit/should
+import moss
 import spinner
-import sprig
 
 pub fn default_spinner_test() {
   let value = spinner.new()
@@ -31,7 +31,7 @@ pub fn presets_loop_at_fixed_width_test() {
       let initial =
         spinner.new()
         |> spinner.variant(variant)
-        |> spinner.style(sprig.new())
+        |> spinner.style(moss.new())
       spinner.interval_ms(initial) |> should.equal(interval)
       initial
       |> spinner.tick
@@ -48,7 +48,7 @@ pub fn presets_loop_at_fixed_width_test() {
 }
 
 pub fn style_preserves_frame_test() {
-  let style = sprig.new() |> sprig.foreground(sprig.Cyan) |> sprig.bold
+  let style = moss.new() |> moss.foreground(moss.Cyan) |> moss.bold
   let value = spinner.new() |> spinner.tick |> spinner.style(style)
   spinner.render(value) |> should.equal("\u{001b}[1;36m⠙\u{001b}[0m")
   value
@@ -56,14 +56,14 @@ pub fn style_preserves_frame_test() {
   |> spinner.render
   |> should.equal("\u{001b}[1;36m⠹\u{001b}[0m")
 
-  value |> spinner.style(sprig.new()) |> spinner.render |> should.equal("⠙")
+  value |> spinner.style(moss.new()) |> spinner.render |> should.equal("⠙")
   spinner.interval_ms(value) |> should.equal(80)
 }
 
 pub fn switching_variant_resets_frame_and_preserves_style_test() {
   let value =
     spinner.new()
-    |> spinner.style(sprig.new() |> sprig.foreground(sprig.Green))
+    |> spinner.style(moss.new() |> moss.foreground(moss.Green))
     |> spinner.tick
     |> spinner.tick
     |> spinner.variant(spinner.Points)

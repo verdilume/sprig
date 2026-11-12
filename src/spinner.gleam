@@ -1,5 +1,5 @@
 import gleam/list
-import sprig
+import moss
 
 pub type Variant {
   Dot
@@ -12,12 +12,12 @@ pub type Variant {
 }
 
 pub opaque type Spinner {
-  Spinner(variant: Variant, frame: Int, style: sprig.Style)
+  Spinner(variant: Variant, frame: Int, style: moss.Style)
 }
 
 /// Create a braille-dot spinner at its first frame in RGB (0, 229, 29).
 pub fn new() -> Spinner {
-  Spinner(Dot, 0, sprig.new() |> sprig.foreground(sprig.Color(0, 229, 29)))
+  Spinner(Dot, 0, moss.new() |> moss.foreground(moss.Color(0, 229, 29)))
 }
 
 /// Select a preset and reset to its first frame, preserving the style.
@@ -25,8 +25,8 @@ pub fn variant(spinner: Spinner, value: Variant) -> Spinner {
   Spinner(..spinner, variant: value, frame: 0)
 }
 
-/// Style the frames using any Sprig style, preserving the current frame.
-pub fn style(spinner: Spinner, value: sprig.Style) -> Spinner {
+/// Style the frames using any Moss style, preserving the current frame.
+pub fn style(spinner: Spinner, value: moss.Style) -> Spinner {
   Spinner(..spinner, style: value)
 }
 
@@ -51,7 +51,7 @@ pub fn tick(spinner: Spinner) -> Spinner {
 pub fn render(spinner: Spinner) -> String {
   let #(frames, _) = preset(spinner.variant)
   let assert [frame, ..] = list.drop(frames, spinner.frame)
-  sprig.render(spinner.style, frame)
+  moss.render(spinner.style, frame)
 }
 
 fn preset(variant: Variant) -> #(List(String), Int) {
