@@ -140,8 +140,9 @@ pub fn main() -> Nil {
 
 Keep the Moss checkout at `../moss` so Gleam can resolve the local dependency.
 GitHub Actions checks out Moss beside Sprig from `<owner>/moss` by default.
-Set the `MOSS_REPOSITORY` Actions variable to `owner/repo` if Moss is hosted in
-a different public repository.
+For a private Moss repository, add a read-only deploy key to Moss and store its
+private key in the Sprig Actions secret `MOSS_DEPLOY_KEY`. Set the
+`MOSS_REPOSITORY` Actions variable to `owner/repo` if Moss is hosted elsewhere.
 
 ```sh
 gleam format --check src test
